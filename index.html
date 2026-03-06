@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic Tac Toe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -16,24 +17,60 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      background: #f4f4f4;
+      font-family: 'Source Sans Pro', sans-serif;
+      color: #043b5c;
+    }
+
+    .top-bar {
+      width: 100%;
+      background: #043b5c;
+      padding: 0.5rem 2rem;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      background: #1a1a2e;
-      font-family: 'Segoe UI', sans-serif;
-      color: #eee;
+      margin-bottom: 3rem;
+    }
+
+    .top-bar-logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+
+    .top-bar-logo span {
+      color: #0072ce;
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      padding-bottom: 3rem;
     }
 
     h1 {
       font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      letter-spacing: 3px;
-      color: #e94560;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #043b5c;
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #5a7a8e;
+      margin-bottom: 1.8rem;
     }
 
     .status {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin-bottom: 1.5rem;
       height: 1.5em;
-      color: #a8dadc;
+      color: #0072ce;
+      font-weight: 600;
     }
 
     .board {
@@ -44,21 +81,22 @@
     }
 
     .cell {
-      background: #16213e;
-      border: 2px solid #0f3460;
-      border-radius: 8px;
+      background: #fff;
+      border: 2px solid #ccdce8;
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 3rem;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
+      transition: border-color 0.15s, transform 0.1s, box-shadow 0.15s;
       user-select: none;
     }
 
     .cell:hover:not(.taken) {
-      background: #0f3460;
+      border-color: #0072ce;
+      box-shadow: 0 2px 8px rgba(0, 114, 206, 0.2);
       transform: scale(1.04);
     }
 
@@ -81,14 +119,13 @@
     }
 
     .cell.winner {
-      background: #0f3460;
-      border-color: #e94560;
+      border-color: #0072ce;
       animation: pulse 0.5s ease-in-out infinite alternate;
     }
 
     @keyframes pulse {
-      from { box-shadow: 0 0 6px #e94560; }
-      to   { box-shadow: 0 0 18px #e94560; }
+      from { box-shadow: 0 0 6px rgba(0, 114, 206, 0.5); }
+      to   { box-shadow: 0 0 20px rgba(0, 114, 206, 0.9); }
     }
 
     .controls {
@@ -99,28 +136,36 @@
     }
 
     button {
-      padding: 0.6rem 1.6rem;
+      padding: 0.6rem 1.8rem;
       font-size: 1rem;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-weight: 600;
       border: none;
-      border-radius: 6px;
+      border-radius: 2px;
       cursor: pointer;
-      background: #e94560;
+      background: #0072ce;
       color: #fff;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       transition: background 0.15s, transform 0.1s;
     }
 
     button:hover {
-      background: #c73652;
-      transform: scale(1.05);
+      background: #005ba3;
+      transform: scale(1.03);
+    }
+
+    .divider {
+      width: 340px;
+      height: 1px;
+      background: #ccdce8;
+      margin: 1.8rem 0 1.5rem;
     }
 
     .score {
-      margin-top: 1.5rem;
       display: flex;
       gap: 2.5rem;
       font-size: 1rem;
-      color: #a8dadc;
+      color: #043b5c;
     }
 
     .score span {
@@ -129,26 +174,34 @@
 
     .score .label {
       display: block;
-      font-size: 0.75rem;
-      opacity: 0.7;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 2px;
+      letter-spacing: 1.5px;
+      color: #5a7a8e;
+      margin-bottom: 4px;
     }
 
     .score .num {
       display: block;
-      font-size: 1.6rem;
-      font-weight: bold;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #043b5c;
     }
 
-    .score .x-score .num { color: #e94560; }
-    .score .o-score .num { color: #a8dadc; }
+    .score .x-score .num { color: #0072ce; }
+    .score .o-score .num { color: #0072ce; }
   </style>
 </head>
 <body>
 
-<h1>TIC TAC TOE</h1>
+<div class="top-bar">
+  <span class="top-bar-logo">a<span>·</span>dec</span>
+</div>
+
+<div class="main-content">
+
+<h1>Tic Tac Toe</h1>
+<p class="subtitle">The A-dec challenge — first to three in a row wins</p>
 <div class="status" id="status">X's turn</div>
 
 <div class="board" id="board">
@@ -167,6 +220,8 @@
   <button id="resetBtn">New Game</button>
 </div>
 
+<div class="divider"></div>
+
 <div class="score">
   <span class="x-score">
     <span class="label">X Wins</span>
@@ -181,6 +236,8 @@
     <span class="num" id="oScore">0</span>
   </span>
 </div>
+
+</div><!-- /.main-content -->
 
 <script>
   const WINS = [
